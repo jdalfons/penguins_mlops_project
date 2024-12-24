@@ -25,15 +25,12 @@ For cost reasons, the project hosted on GitHub is completely local. However, the
 
 https://huggingface.co/spaces/jdalfonso/penguins
 
-## Tools
+## API
 
-| Tool      | Version  |
-|-----------|----------|
-| Docker    | Latest   |
-| Python    | 3.11     |
-| MLflow    | 2.19.0   |
-| Streamlit | 1.40.1   |
-| FastAPI   | 0.115.5  |
+t know how to use API let's check.
+
+https://github.com/jdalfons/penguins_mlops_project/tree/main/server/README.md 
+
 
 ## Setting Up the Project
 
@@ -66,8 +63,19 @@ Create a `.env` file in the mlflow directory and set the necessary environment v
 
 Once the containers are up and running, you can access the MLflow UI by navigating to `http://localhost:5000` in your web browser.
 
+## Tools
+
+| Tool      | Version  |
+|-----------|----------|
+| Docker    | Latest   |
+| Python    | 3.11     |
+| MLflow    | 2.19.0   |
+| Streamlit | 1.40.1   |
+| FastAPI   | 0.115.5  |
+
 ## Conclusion
 
 By following the steps above, you will have a fully functional MLOps environment for developing and deploying machine learning models. Make sure to properly configure your environment variables to ensure smooth operation of MLflow and other services.
 
 Happy coding!
+
