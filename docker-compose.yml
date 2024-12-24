@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongo
+  #   ports:
+  #     - "27017:27017"
+
+  # mlflow:
+  #   image: mlflow/mlflow:latest
+  #   container_name: mlflow
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     MLFLOW_TRACKING_URI: http://mlflow:5000
+
+  postgres:
+    container_name: myDBPostgres
+    image: postgres:latest
+    ports:
+        - "32001:5432"
+    environment:
+        POSTGRES_DB: mlops
+        POSTGRES_USER: mlops
+        POSTGRES_PASSWORD: mlops
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mlops"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  server:
+    container_name: server
+    image: mlops-server
+    links:
+      - "postgres"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+  client:
+    image: mlops-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      - "8501:8501"
