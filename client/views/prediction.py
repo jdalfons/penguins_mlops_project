@@ -11,18 +11,18 @@ def prediction():
     st.title("🤖 Prediction")
     st.write("Welcome to the prediction page!")
 
-    # Load models
-    models = {
-        'Logistic Regression': joblib.load('./models/LogisticRegression.pkl'),
-        'K-Nearest Neighbors': joblib.load('./models/KNeighborsRegressor.pkl'),
-        'Random Forest': joblib.load('./models/RandomForestRegressor.pkl'),
-        'Extra Trees': joblib.load('./models/ExtraTreesRegressor.pkl')
-    }
+
+    models = (
+        'Logistic Regression',
+        'K-Nearest Neighbors',
+        'Random Forest',
+        'Extra Trees'
+    )
 
     # Select model
     model_choice = st.selectbox(
         "Choose a model",
-        list(models.keys())
+        models
     )
 
     # Form to input new data
@@ -33,6 +33,7 @@ def prediction():
         flipper_length_mm = st.number_input("Flipper Length (mm)", min_value=0.0)
         body_mass_g = st.number_input("Body Mass (g)", min_value=0.0)
         sex = st.selectbox("Sex", {"MALE": 0, "FEMALE": 1})
+        save_data = st.checkbox("Save data?", value=False)
 
         submitted = st.form_submit_button("Predict")
 
@@ -50,7 +51,8 @@ def prediction():
                 "flipper_length_mm": flipper_length_mm,
                 "body_mass_g": body_mass_g,
                 "sex": sex,
-                "model": model_choice
+                "model": model_choice,
+                "insert": save_data
             }
 
             try:

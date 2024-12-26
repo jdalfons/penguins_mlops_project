@@ -1,11 +1,11 @@
-import streamlit as st
 import pandas as pd
-from streamlit_option_menu import option_menu
 import requests
+import streamlit as st
+from streamlit_option_menu import option_menu
 
-from pages.analytics import analytics
-from pages.about import about
-from pages.prediction import prediction
+from views.analytics import analytics
+from views.about import about
+from views.prediction import prediction
 
 
 def get_data():
@@ -32,16 +32,16 @@ def get_data():
             ]
         )
 
-
 def main():
-    """Main function to control the app."""
     df = get_data()
 
     with st.sidebar:
         selected = option_menu(
-            "Main Menu", ["About", 'Analytics', 'Prediction'],
-            icons=['home', 'bar-chart', 'robot'],
-            menu_icon="cast", default_index=0
+            menu_title="Penguins Project",
+            options=["About", 'Analytics', 'Prediction'],
+            icons=['house', 'bar-chart', 'robot'],
+            # menu_icon="cast",
+            default_index=0
         )
 
     if selected == "About":
@@ -50,7 +50,6 @@ def main():
         analytics(df)
     elif selected == "Prediction":
         prediction()
-
 
 if __name__ == "__main__":
     main()
