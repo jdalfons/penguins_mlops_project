@@ -27,7 +27,7 @@ https://huggingface.co/spaces/jdalfonso/penguins
 
 ## API
 
-t know how to use API let's check.
+To know how to use API let's check.
 
 https://github.com/jdalfons/penguins_mlops_project/tree/main/server/README.md 
 
