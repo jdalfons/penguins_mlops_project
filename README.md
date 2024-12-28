@@ -38,7 +38,7 @@ To set up the project, you will need to use Docker Compose. Docker Compose allow
 
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/yourusername/penguin_mlops_project.git
+    git clone https://github.com/jdalfons/penguins_mlops_project.git
     cd penguin_mlops_project
     ```
 
@@ -49,6 +49,13 @@ To set up the project, you will need to use Docker Compose. Docker Compose allow
     ```
 
     This command will build 4 Docker images and start the containers in detached mode.
+
+## Architecture
+
+The architecture of the project is illustrated in the following diagram:
+
+![MLOps Architecture](https://github.com/jdalfons/penguins_mlops_project/raw/main/diagram/docker_mlops.png)
+
 
 ## Running MLflow
 
