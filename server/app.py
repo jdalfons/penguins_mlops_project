@@ -173,15 +173,19 @@ async def predict(request: Request):
     
     response['prediction'] = predicted_species
     
-    if 'insert' in data_dict:
+    if 'insert' in data_dict and data_dict['insert']:
         try:
-            cursor.execute(
-                "INSERT INTO penguin_data (species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm, body_mass_g, sex, spe) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                (predicted_species, data_dict['island'], data_dict['culmen_length_mm'], data_dict['culmen_depth_mm'], data_dict['flipper_length_mm'], data_dict['body_mass_g'], data_dict['sex'])
-            )
-            db.commit()
-            response['inserted'] = True
+            try:
+                cursor.execute(
+                        "INSERT INTO penguin_data (species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm, body_mass_g, sex) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                        (predicted_species, data_dict['island'], data_dict['culmen_length_mm'], data_dict['culmen_depth_mm'], data_dict['flipper_length_mm'], data_dict['body_mass_g'], data_dict['sex'])
+                    )
+                db.commit()
+                response['inserted'] = True
+            except psycopg2.Error as err:
+                db.rollback()
+                raise HTTPException(status_code=500, detail=f"Database insert error: {err}")
         except psycopg2.Error as err:
             raise HTTPException(status_code=500, detail=f"Database insert error: {err}")
         
-    return {"prediction": predicted_species, "model": model_type}
+    return response
